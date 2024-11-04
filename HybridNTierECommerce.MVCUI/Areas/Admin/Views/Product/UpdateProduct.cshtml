@@ -1,0 +1,46 @@
+﻿@model UpdateProductPageVM
+
+<form asp-action="UpdateProduct" asp-controller="Product" method="post" class="p-3 w-75 m-auto" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="Product.ID" value="@Model.Product.ID" />
+    <div class="mb-3" style="width:30%; height:30%; float:left">
+        <img src="@Model.Product.ImagePath" style="width:90%; max-height:90%; object-fit:cover;" />
+        <input type="file" name="formFile" class="form-control" style="width:90%;"  />
+        
+        <input type="hidden" asp-for="Product.ImagePath" value="@Model.Product.ImagePath" />
+    </div>
+
+    <div style="width:30%; height:30% ;float:left;">
+        <div class="mb-3">
+            <label>Category</label>
+            <div>
+                <select asp-for="Product.CategoryID" asp-items='new SelectList(Model.Categories,"ID","CategoryName")'>
+                    <option value="">select</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="mb-3 w-75">
+            <label>Product name</label>
+            <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+            <input asp-for="Product.ProductName" class="form-control" />
+        </div>
+
+        <div class="mb-3 w-75">
+            <label>Price</label>
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
+            <input asp-for="Product.Price" class="form-control" />
+        </div>
+
+       
+        <div class="mb-3">
+            <label>Units in stock</label>
+            <span asp-validation-for="Product.UnitsInStock" class="text-danger"></span>
+            <input asp-for="Product.UnitsInStock" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-info">Update Product</button>
+        </div>
+    </div>
+
+</form>

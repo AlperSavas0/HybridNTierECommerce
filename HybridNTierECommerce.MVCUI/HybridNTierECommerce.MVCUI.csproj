@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\OuterTools\FlatAdmin\**" />
+    <Content Remove="wwwroot\OuterTools\FlatAdmin\**" />
+    <EmbeddedResource Remove="wwwroot\OuterTools\FlatAdmin\**" />
+    <None Remove="wwwroot\OuterTools\FlatAdmin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HybridNTierECommerce.BLL\HybridNTierECommerce.BLL.csproj" />
+    <ProjectReference Include="..\HybridNTierECommerce.IOC\HybridNTierECommerce.IOC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Models\AppUserVms\PureVms\RequestModels\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\OuterTools\assets\jquery-file-upload\server\php\files\thumbnail\" />
+  </ItemGroup>
+
+</Project>

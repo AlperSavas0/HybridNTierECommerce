@@ -1,0 +1,52 @@
+﻿@model UserSignInRequestModel
+
+<h3>
+    @TempData["Message"]
+</h3>
+
+
+<body class="login-body">
+
+    <div class="container">
+
+        <form class="form-signin" asp-action="SignIn" asp-controller="Home">
+            <h2 class="form-signin-heading">sign in now</h2>
+            <div class="login-wrap">
+                <div>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <input asp-for="UserName" class="form-control" placeholder="User name" autofocus>
+                </div>
+               <div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <input asp-for="Password" class="form-control" placeholder="Password">
+               </div>
+                
+                <button class="btn btn-lg btn-login btn-block">Sign in</button>
+                
+                <div class="registration">
+                    Don't have an account yet?
+                    <a class="" href="registration.html">
+                        Create an account
+                    </a>
+                </div>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+ </body>
+
+
+
+  
+   

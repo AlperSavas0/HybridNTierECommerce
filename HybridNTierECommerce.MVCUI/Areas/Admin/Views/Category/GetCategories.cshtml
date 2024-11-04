@@ -1,0 +1,44 @@
+﻿@model List<CategoryResponseModel>
+
+
+<section class="panel">
+    <header class="panel-heading">
+        <h2>Categories</h2>
+        <a asp-action="CreateCategory" asp-controller="Category" class="btn btn-success">Add new category</a> 
+    </header>
+
+
+    <div class="panel-body">
+        <div class="adv-table">
+            <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <thead>
+                    <tr>
+                        <th>CategoryID</th>
+                        <th>Category Name</th>
+                        <th class="hidden-phone">Description</th>
+                        <th class="hidden-phone">Status</th>
+                        <th class="hidden-phone">Update</th>
+                        <th class="hidden-phone">Delete</th>
+                        <th class="hidden-phone">Destroy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CategoryResponseModel item in Model)
+                    {
+                        <tr class="gradeX">
+                            <td>@item.ID</td>
+                            <td>@item.CategoryName</td>
+                            <td class="hidden-phone">@item.Description</td>
+                            <td class="center hidden-phone">@item.Status</td>
+                            <td class="center hidden-phone"><a asp-action="UpdateCategory" asp-Contoller="Category" asp-route-id="@item.ID" class="btn btn-info">Update</a></td>
+                            <td class="center hidden-phone"><a asp-action="DeleteCategory" asp-Contoller="Category" asp-route-id="@item.ID" class="btn btn-warning">Delete</a></td>
+                            <td class="center hidden-phone"><a asp-action="DestroyCategory" asp-Contoller="Category" asp-route-id="@item.ID" class="btn btn-danger">Destroy</a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>

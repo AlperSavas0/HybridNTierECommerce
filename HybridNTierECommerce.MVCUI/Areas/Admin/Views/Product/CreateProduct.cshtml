@@ -1,0 +1,41 @@
+﻿@model CreateProductPageVM
+
+<h3 class="text-danger">@TempData["Message"]</h3>
+
+<form asp-action="CreateProduct" asp-controller="Product" method="post" class="p-3 w-75 m-auto" enctype="multipart/form-data">
+
+    <div class="mb-3">
+        <label>Category</label>
+        <div>
+            <select asp-for="Product.CategoryID" asp-items='new SelectList(Model.Categories,"ID","CategoryName")'>
+                <option value="">select</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Product name</label>
+        <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+        <input asp-for="Product.ProductName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <span asp-validation-for="Product.Price" class="text-danger"></span>
+        <input asp-for="Product.Price" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Units in stock</label>
+        <span asp-validation-for="Product.UnitsInStock" class="text-danger"></span>
+        <input asp-for="Product.UnitsInStock" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Choose file</label>
+        <input type="file" name="formFile" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-success">Add Product</button>
+    </div>
+
+</form>

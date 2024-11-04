@@ -1,0 +1,56 @@
+﻿@model List<ProductResponseModel>
+
+<h4>@TempData["Message"]</h4>
+
+<section class="panel">
+    <header class="panel-heading">
+        <h2>Products</h2>
+        <a asp-action="CreateProduct" asp-controller="Product" class="btn btn-success">Add new product</a>
+    </header>
+
+
+    <div class="panel-body">
+        <div class="adv-table">
+            <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <thead>
+                    <tr>
+                        <th>ProductID</th>
+                        <th>Product Name</th>
+                        <th class="hidden-phone">Price</th>
+                        <th class="hidden-phone">Category</th>
+                        <th class="hidden-phone">UnitsInStock</th>
+                        <th class="hidden-phone">Status</th>
+                        <th class="hidden-phone">Update</th>
+                        <th class="hidden-phone">Delete</th>
+                        <th class="hidden-phone">Destroy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ProductResponseModel item in Model)
+                    {
+                        <tr class="gradeX">
+                            <td>@item.ID</td>
+                            <td>@item.ProductName</td>
+                            <td class="hidden-phone">@item.Price</td>
+                            @if(item.CategoryName==null)
+                            {
+                                <td>Uncategorised</td>
+                            }
+                            else
+                            {
+                                <td class="hidden-phone">@item.CategoryName</td>
+                            }
+                            <td class="hidden-phone">@item.UnitsInStock</td>
+                            <td class="center hidden-phone">@item.Status</td>
+                            <td class="center hidden-phone"><a asp-action="UpdateProduct" asp-Contoller="Product" asp-route-id="@item.ID" class="btn btn-info">Update</a></td>
+                            <td class="center hidden-phone"><a asp-action="DeleteProduct" asp-Contoller="Product" asp-route-id="@item.ID" class="btn btn-warning">Delete</a></td>
+                            <td class="center hidden-phone"><a asp-action="DestroyProduct" asp-Contoller="Product" asp-route-id="@item.ID" class="btn btn-danger">Destroy</a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>

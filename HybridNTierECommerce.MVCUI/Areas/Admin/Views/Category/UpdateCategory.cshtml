@@ -1,0 +1,18 @@
+﻿@model UpdateCategoryRequestModel
+
+<form asp-action="UpdateCategory" asp-controller="Category" method="post">
+    <input type="hidden" asp-for="ID"value="@Model.ID" />
+    <div class="mb-3">
+        <label>Category name</label>
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+        <input asp-for="CategoryName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Description</label>
+        <span asp-validation-for="Description" class="text-danger"></span>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-info">Update</button>
+    </div>
+</form>
