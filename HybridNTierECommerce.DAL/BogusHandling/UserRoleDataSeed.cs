@@ -37,10 +37,10 @@ namespace HybridNTierECommerce.DAL.BogusHandling
             AppUser user = new()
             {
                 Id = 1,
-                UserName = "alper123",
-                Email = "alper@email.com",
-                NormalizedEmail = "ALPER@EMAIL.COM",
-                NormalizedUserName = "ALPER123",
+                UserName = "Admin",
+                Email = "admin@email.com",
+                NormalizedEmail = "ADMIN@EMAIL.COM",
+                NormalizedUserName = "ADMIN",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 PasswordHash = passwordHasher.HashPassword(null, "123")

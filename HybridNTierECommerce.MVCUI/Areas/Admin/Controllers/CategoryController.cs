@@ -12,23 +12,25 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         readonly ICategoryManager _catManager;
         readonly IMapper _mapper;
         readonly IValidator<CreateCategoryRequestModel> _createCategoryRequestValidator;
+        readonly IValidator<UpdateCategoryRequestModel> _updateCategoryRequestValidator;
 
-        public CategoryController(ICategoryManager catManager, IMapper mapper, IValidator<CreateCategoryRequestModel> createCategoryRequestValidator)
+        public CategoryController(ICategoryManager catManager, IMapper mapper, IValidator<CreateCategoryRequestModel> createCategoryRequestValidator, IValidator<UpdateCategoryRequestModel> updateCategoryRequestValidator)
         {
             _catManager = catManager;
             _mapper = mapper;
             _createCategoryRequestValidator = createCategoryRequestValidator;
+            _updateCategoryRequestValidator = updateCategoryRequestValidator;
         }
 
         public IActionResult GetCategories()
         {
-            List<CategoryResponseModel> cResVMs= _mapper.Map<List<CategoryResponseModel>>(_catManager.GetAll());
+            List<CategoryResponseModel> cResVMs = _mapper.Map<List<CategoryResponseModel>>(_catManager.GetAll());
             return View(cResVMs);
         }
 
@@ -42,10 +44,10 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
             ValidationResult validationResult = _createCategoryRequestValidator.Validate(model);
             if (!validationResult.IsValid)
             {
-                foreach (var item in validationResult.Errors) ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                foreach (ValidationFailure? item in validationResult.Errors) ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 return View(model);
             }
-            TempData["Message"]= await _catManager.AddAsync(_mapper.Map<CategoryDTO>(model));
+            TempData["Message"] = await _catManager.AddAsync(_mapper.Map<CategoryDTO>(model));
             return RedirectToAction("GetCategories");
         }
         public async Task<IActionResult> UpdateCategory(int id)
@@ -56,8 +58,15 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryRequestModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            await _catManager.UpdateAsync(_mapper.Map<CategoryDTO>(model));
+            ValidationResult validationResult = _updateCategoryRequestValidator.Validate(model);
+            if (!validationResult.IsValid)
+            {
+                foreach (ValidationFailure item in validationResult.Errors) ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                return View(model);
+            }
+
+            //if (!ModelState.IsValid) return View(model);
+            TempData["Message"] = await _catManager.UpdateAsync(_mapper.Map<CategoryDTO>(model));
             return RedirectToAction("GetCategories");
         }
 
@@ -71,8 +80,8 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
         {
             CategoryDTO cDto = _catManager.Find(id);
             TempData["Message"] = _catManager.Destroy(cDto);
-            return RedirectToAction("GetCategories"); 
+            return RedirectToAction("GetCategories");
         }
-        
+
     }
 }

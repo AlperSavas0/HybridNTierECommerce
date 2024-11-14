@@ -9,9 +9,9 @@ namespace HybridNTıerECommerce.VIEWMODEL.ViewModels.ProductVMs.PureVMs.Requrest
     public class UpdateProductRequestModel
     {
         public int ID { get; set; }
-        public string ProductName { get; set; }
-        public decimal Price { get; set; }
-        public int UnitsInStock { get; set; }
+        public string? ProductName { get; set; }
+        public decimal? Price { get; set; }
+        public int? UnitsInStock { get; set; }
         public int? CategoryID { get; set; }
         public string ImagePath { get; set; }
     }

@@ -27,7 +27,7 @@ namespace HybridNTierECommerce.IOC.DependencyResolvers
             services.AddScoped<IValidator<UpdateCategoryRequestModel>, UpdateCategoryRequestModelValidator>();
 
             services.AddScoped<IValidator<CreateProductRequestModel>, CreateProductRequestModelValidator>();
-            
+            services.AddScoped<IValidator<UpdateProductRequestModel>, UpdateProductRequestModelValidator>();
         }
     }
 }

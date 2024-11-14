@@ -21,13 +21,14 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
         readonly ICategoryManager _catManager;
         readonly IMapper _mapper;
         readonly IValidator<CreateProductRequestModel> _createProductRequestValidator;
-
-        public ProductController(IProductManager productManager, ICategoryManager catManager, IMapper mapper, IValidator<CreateProductRequestModel> createProductRequestValidator)
+        readonly IValidator<UpdateProductRequestModel> _updateProductRequestValidator;
+        public ProductController(IProductManager productManager, ICategoryManager catManager, IMapper mapper, IValidator<CreateProductRequestModel> createProductRequestValidator, IValidator<UpdateProductRequestModel> updateProductRequestValidator)
         {
             _productManager = productManager;
             _catManager = catManager;
             _mapper = mapper;
             _createProductRequestValidator = createProductRequestValidator;
+            _updateProductRequestValidator = updateProductRequestValidator;
         }
 
         public IActionResult GetProducts()
@@ -54,7 +55,7 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
             ValidationResult validationResult = _createProductRequestValidator.Validate(model.Product);
             if (!validationResult.IsValid)
             {
-                foreach (var error in validationResult.Errors) ModelState.AddModelError($"Product.{error.PropertyName}", error.ErrorMessage);
+                foreach (ValidationFailure? error in validationResult.Errors) ModelState.AddModelError($"Product.{error.PropertyName}", error.ErrorMessage);
                 return View(model);
             }
             string result = await _productManager.CreateProductAsync(_mapper.Map<ProductDTO>(model.Product), formFile);
@@ -77,6 +78,14 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(UpdateProductPageVM model, IFormFile formfile)
         {
+            model.Categories = _mapper.Map<List<CategoryResponseModel>>(_catManager.GetActives());
+
+            ValidationResult validationResult = _updateProductRequestValidator.Validate(model.Product);
+            if (!validationResult.IsValid)
+            {
+                foreach (ValidationFailure? error in validationResult.Errors) ModelState.AddModelError($"Product.{error.PropertyName}", error.ErrorMessage);
+                return View(model);
+            }
             ProductDTO pDto= _mapper.Map<ProductDTO>(model.Product);
             await _productManager.UpdateProductAsync(pDto, formfile);
             return RedirectToAction("GetProducts");

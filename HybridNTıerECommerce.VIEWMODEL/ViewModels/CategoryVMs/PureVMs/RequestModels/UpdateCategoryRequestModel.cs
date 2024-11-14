@@ -9,7 +9,7 @@ namespace HybridNTıerECommerce.VIEWMODEL.ViewModels.CategoryVMs.PureVMs.Request
     public class UpdateCategoryRequestModel
     {
         public int ID { get; set; }
-        public string CategoryName { get; set; }
-        public string Description { get; set; }
+        public string? CategoryName { get; set; }
+        public string? Description { get; set; }
     }
 }
