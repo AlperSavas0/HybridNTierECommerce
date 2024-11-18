@@ -95,7 +95,7 @@ namespace HybridNTierECommerce.MVCUI.Controllers
             (SignInResult result, IList<string>? roles) = await _userService.SignInAsync(signInDto);
             if (result.Succeeded)
             {
-                if (roles.Contains("Admin")) return RedirectToAction("GetCategories", "Category", new { Area = "Admin" });
+                if (roles.Contains("Admin")) return RedirectToAction("Index", "Home", new { Area = "Admin" });
                 else if (roles.Contains("Member")) return RedirectToAction("Privacy");
                 return RedirectToAction("Index");
             }

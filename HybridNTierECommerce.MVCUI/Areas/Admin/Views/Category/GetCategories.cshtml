@@ -1,6 +1,7 @@
 ﻿@model List<CategoryResponseModel>
 
 <h3 class="text-danger">@TempData["Message"]</h3>
+<a asp-action="Index" asp-controller="Home" class="btn btn-info">Return to AdminPage</a>
 
 <section class="panel">
     <header class="panel-heading">
@@ -41,5 +42,6 @@
             </table>
 
         </div>
+        
     </div>
 </section>
