@@ -49,17 +49,14 @@ namespace HybridNTierECommerce.BLL.Managers.Concretes
 
                 return null;
             }
-
-                
         }
         public async Task<string> CreateProductAsync(ProductDTO pDto, IFormFile formFile)
         {
-            string message= await AddPicture(pDto, formFile);
+            string message = await AddPicture(pDto, formFile);
             if (message != null) return message;
-            
+
             return await AddAsync(pDto);
         }
-
 
         public async Task UpdateProductAsync(ProductDTO pDto, IFormFile formFile)
         {
@@ -68,14 +65,12 @@ namespace HybridNTierECommerce.BLL.Managers.Concretes
         }
         public override string Destroy(ProductDTO item)
         {
-            foreach (OrderDetailDTO od in _orderDetailManager.Where(x => x.ProductID == item.ID)) 
+            foreach (OrderDetailDTO od in _orderDetailManager.Where(x => x.ProductID == item.ID))
             {
-                if(od.Status != "Deleted") return "All related OrderDetails must be deleted first.";
+                if (od.Status != "Deleted") return "All related OrderDetails must be deleted first.";
             }
-            
+
             return base.Destroy(item);
         }
-
-
     }
 }

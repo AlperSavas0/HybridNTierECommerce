@@ -2,15 +2,12 @@
 using HybridNTierECommerce.BLL.Managers.Abstracts;
 using HybridNTierECommerce.BLL.Services.Abstracts;
 using HybridNTierECommerce.DTO.OrderDTOs;
-using HybridNTierECommerce.DTO.ShoppingTools;
 using HybridNTıerECommerce.VIEWMODEL.ViewModels.CategoryVMs.PureVMs.ResponseModels;
 using HybridNTıerECommerce.VIEWMODEL.ViewModels.OrderVMs.PageVMs;
 using HybridNTıerECommerce.VIEWMODEL.ViewModels.ProductVMs.PureVMs.ResponseModels;
 using HybridNTıerECommerce.VIEWMODEL.ViewModels.ShoppingVMs.PageVMs;
-
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using X.PagedList;
 using X.PagedList.Extensions;
 
 namespace HybridNTierECommerce.MVCUI.Controllers
@@ -30,8 +27,6 @@ namespace HybridNTierECommerce.MVCUI.Controllers
             _cartService = cartService;
             _orderManager = orderManager;
         }
-
-
         public IActionResult Index(int? page, int? categoryID)
         {
             List<ProductResponseModel> products = _mapper.Map<List<ProductResponseModel>>(categoryID == null ? _productManager.GetActives() : _productManager.Where(x => x.CategoryID == categoryID));
@@ -82,8 +77,8 @@ namespace HybridNTierECommerce.MVCUI.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmOrder(OrderRequestPageVM oRPVM)
         {
-            string userId=User.Identity.IsAuthenticated? User.FindFirstValue(ClaimTypes.NameIdentifier) : null;
-            OrderRequestPageVMDTO oVmDTO= _mapper.Map<OrderRequestPageVMDTO>(oRPVM);
+            string userId = User.Identity.IsAuthenticated ? User.FindFirstValue(ClaimTypes.NameIdentifier) : null;
+            OrderRequestPageVMDTO oVmDTO = _mapper.Map<OrderRequestPageVMDTO>(oRPVM);
 
             bool result = await _orderManager.ConfirmeOrderAsync(oVmDTO, userId);
 

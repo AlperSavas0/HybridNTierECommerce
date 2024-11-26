@@ -1,7 +1,6 @@
 using AutoMapper;
 using HybridNTierECommerce.BLL.Services.Abstracts;
 using HybridNTierECommerce.DTO.User;
-using HybridNTierECommerce.ENTITIES.Models;
 using HybridNTierECommerce.MVCUI.Models;
 using HybridNTýerECommerce.VIEWMODEL.ViewModels.AppUserVMs.PureVMs.RequestModels;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +10,6 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace HybridNTierECommerce.MVCUI.Controllers
 {
-    //http://localhost:5036/
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -72,7 +70,7 @@ namespace HybridNTierECommerce.MVCUI.Controllers
         public async Task<IActionResult> ConfirmEmail(Guid specId, int id)
         {
             ConfirmEmailDTO dto = new() { SpecId = specId, UserId = id };
-            (bool isSuccess,string message)= await _userService.ConfirmEmailAsync(dto);
+            (bool isSuccess, string message) = await _userService.ConfirmEmailAsync(dto);
 
             TempData["Message"] = message;
             if (isSuccess) return RedirectToAction("SignIn");

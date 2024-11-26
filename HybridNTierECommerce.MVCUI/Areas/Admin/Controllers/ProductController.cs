@@ -16,7 +16,6 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
-
         readonly IProductManager _productManager;
         readonly ICategoryManager _catManager;
         readonly IMapper _mapper;
@@ -36,7 +35,6 @@ namespace HybridNTierECommerce.MVCUI.Areas.Admin.Controllers
             List<ProductResponseModel> pRM = _mapper.Map<List<ProductResponseModel>>(_productManager.GetAll());
             return View(pRM);
         }
-
 
         public IActionResult CreateProduct()
         {

@@ -11,16 +11,13 @@ using HybridNTierECommerce.DTO.CategoryDTOs;
 
 namespace HybridNTierECommerce.BLL.Managers.Concretes
 {
-
-
-    public class CategoryManager : BaseManager<Category, CategoryDTO> , ICategoryManager
+    public class CategoryManager : BaseManager<Category, CategoryDTO>, ICategoryManager
     {
         readonly ICategoryRepository _catRep;
 
-        public CategoryManager(ICategoryRepository catRep, IMapper mapper) :base(catRep,mapper)
+        public CategoryManager(ICategoryRepository catRep, IMapper mapper) : base(catRep, mapper)
         {
             _catRep = catRep;
-            
         }
         public override string Add(CategoryDTO item)
         {
@@ -32,7 +29,6 @@ namespace HybridNTierECommerce.BLL.Managers.Concretes
             if (await _catRep.AnyAsync(x => x.CategoryName == item.CategoryName)) return "This category already exist";
             return await base.AddAsync(item);
         }
-
         public override async Task<string> UpdateAsync(CategoryDTO item)
         {
             if (await _catRep.AnyAsync(x => x.CategoryName == item.CategoryName)) return "This category already exist";

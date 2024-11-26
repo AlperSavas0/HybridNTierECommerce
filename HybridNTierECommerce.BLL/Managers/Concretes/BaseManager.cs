@@ -136,12 +136,12 @@ namespace HybridNTierECommerce.BLL.Managers.Concretes
         public virtual string Destroy(D item)
         {
             T entity = _mapper.Map<T>(item);
-            
+
             if (entity.Status == DataStatus.Deleted)
             {
                 _iRep.Destroy(entity);
                 return "Destroyed successfully";
-            } 
+            }
             return "Must be deleted first";
         }
 
@@ -245,11 +245,6 @@ namespace HybridNTierECommerce.BLL.Managers.Concretes
 
         public List<D> Where(Expression<Func<T, bool>> exp)
         {
-            //var parameter=Expression.Parameter(typeof(T),"x");
-            //var body = Expression.Invoke(exp, parameter);
-
-            //var newExp = Expression.Lambda<Func<T, bool>>(body, parameter);
-            //List<T> foundEntities = _iRep.Where(exp);
             return _mapper.Map<List<D>>(_iRep.Where(exp));
         }
     }

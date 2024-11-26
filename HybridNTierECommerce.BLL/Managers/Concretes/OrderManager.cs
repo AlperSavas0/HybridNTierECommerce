@@ -5,8 +5,6 @@ using HybridNTierECommerce.DAL.Repositories.Abstracts;
 using HybridNTierECommerce.DTO.DomainDTOs;
 using HybridNTierECommerce.DTO.OrderDTOs;
 using HybridNTierECommerce.DTO.ShoppingTools;
-using HybridNTierECommerce.DTO.User;
-using HybridNTierECommerce.ENTITIES.Enums;
 using HybridNTierECommerce.ENTITIES.Models;
 using Microsoft.AspNetCore.Identity;
 using System;

@@ -2,9 +2,7 @@
 using HybridNTierECommerce.BLL.Services.Abstracts;
 using HybridNTierECommerce.COMMON.Tools;
 using HybridNTierECommerce.DTO.User;
-using HybridNTierECommerce.ENTITIES.Enums;
 using HybridNTierECommerce.ENTITIES.Models;
-using HybridNTıerECommerce.VIEWMODEL.ViewModels.AppUserVMs.PureVMs.RequestModels;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
-
 
 namespace HybridNTierECommerce.BLL.Services.Concretes
 {
@@ -68,7 +65,5 @@ namespace HybridNTierECommerce.BLL.Services.Concretes
             }
             return (result, null);
         }
-
-
     }
 }
