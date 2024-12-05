@@ -18,7 +18,7 @@ namespace HybridNTierECommerce.IOC.MapperProfiles
         public ShoppingProfile()
         {
             CreateMap<Cart,CartDTO>().ReverseMap();
-            CreateMap<CartItemDTO,ProductDTO>().ForMember(dest=>dest.Price ,opt=>opt.MapFrom(src=>src.UnitPrice)).ReverseMap();
+            CreateMap<CartItem,ProductDTO>().ForMember(dest=>dest.Price ,opt=>opt.MapFrom(src=>src.UnitPrice)).ReverseMap();
             CreateMap<CartItemDTO,CartItem>().ReverseMap();
             CreateMap<CartDTO, CartPageVM>().ReverseMap();
 

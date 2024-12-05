@@ -24,11 +24,11 @@ namespace HybridNTierECommerce.BLL.Services.Concretes
             _productManager = productManager;
         }
 
-        public void SetCartForSession(string key, CartDTO cDto)
+        public void SetCartForSession(string key, Cart cart)
         {
-            cDto.CartItems = cDto.MyCart.Values.ToList();
-            cDto.TotalPrice = cDto.MyCart.Values.Sum(x => x.SubTotal);
-            _sessionService.SetObject(key, _mapper.Map<Cart>(cDto));
+            cart.CartItems = cart.MyCart.Values.ToList();
+            cart.TotalPrice = cart.MyCart.Values.Sum(x => x.SubTotal);
+            _sessionService.SetObject(key, cart);
         }
 
         public CartDTO GetCartFromSession(string key)
@@ -39,35 +39,40 @@ namespace HybridNTierECommerce.BLL.Services.Concretes
 
         public async Task AddToCartAsync(string key,int id)
         {
-            CartItemDTO cItemDto = _mapper.Map<CartItemDTO>(await _productManager.FindAsync(id));
+            CartItem cItem = _mapper.Map<CartItem>(await _productManager.FindAsync(id));
             CartDTO cDto = GetCartFromSession(key) ?? new CartDTO { MyCart = new Dictionary<int, CartItemDTO>() };
+            Cart cart = _mapper.Map<Cart>(cDto);
 
-            if (!cDto.MyCart.ContainsKey(cItemDto.ID)) cDto.MyCart.Add(cItemDto.ID, cItemDto);
-            cDto.MyCart[cItemDto.ID].Amount++;
+            if (!cart.MyCart.ContainsKey(cItem.ID)) cart.MyCart.Add(cItem.ID, cItem);
+            cart.MyCart[cItem.ID].Amount++;
 
-            FinalizeCart(key, cDto);
+            FinalizeCart(key, cart);
         }
 
         public void DescreaseFromCart(string key, int id)
         {
             CartDTO cDto = GetCartFromSession(key);
-            cDto.MyCart[id].Amount--;
-            if (cDto.MyCart[id].Amount == 0) cDto.MyCart.Remove(id);
+            Cart cart = _mapper.Map<Cart>(cDto);
+            cart.MyCart[id].Amount--;
+            if (cart.MyCart[id].Amount == 0) cart.MyCart.Remove(id);
 
-            FinalizeCart(key, cDto);
+            FinalizeCart(key, cart);
         }
 
         public void RemoveFromCart(string key, int id)
         {
             CartDTO cDto = GetCartFromSession(key);
-            cDto.MyCart.Remove(id);
+            Cart cart = _mapper.Map<Cart>(cDto);
+            cart.MyCart.Remove(id);
+
+            FinalizeCart(key, cart);
         }
 
-        private void FinalizeCart(string key, CartDTO cDto)
+        private void FinalizeCart(string key, Cart cart)
         {
-            cDto.CartItems = cDto.MyCart.Values.ToList();
-            cDto.TotalPrice = cDto.MyCart.Values.Sum(x => x.SubTotal);
-            SetCartForSession(key, cDto);
+            cart.CartItems = cart.MyCart.Values.ToList();
+            cart.TotalPrice = cart.MyCart.Values.Sum(x => x.SubTotal);
+            SetCartForSession(key, cart);
         }
     }
 }

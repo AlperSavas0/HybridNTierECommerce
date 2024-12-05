@@ -10,7 +10,7 @@ namespace HybridNTierECommerce.BLL.Services.Abstracts
 {
     public interface ICartService
     {
-        void SetCartForSession(string key, CartDTO cart);
+        void SetCartForSession(string key, Cart cart);
         CartDTO GetCartFromSession(string key);
         Task AddToCartAsync(string key, int id);
         void DescreaseFromCart(string ket, int id);
