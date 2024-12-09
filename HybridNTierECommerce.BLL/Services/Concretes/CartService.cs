@@ -35,9 +35,9 @@ namespace HybridNTierECommerce.BLL.Services.Concretes
         {
             return _mapper.Map<CartDTO>(_sessionService.GetObject<Cart>(key));
         }
-       
 
-        public async Task AddToCartAsync(string key,int id)
+
+        public async Task AddToCartAsync(string key, int id)
         {
             CartItem cItem = _mapper.Map<CartItem>(await _productManager.FindAsync(id));
             CartDTO cDto = GetCartFromSession(key) ?? new CartDTO { MyCart = new Dictionary<int, CartItemDTO>() };
